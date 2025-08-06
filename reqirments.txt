@@ -1,0 +1,6 @@
+gradio
+os
+requests
+pathlib
+dotenv
+logging
