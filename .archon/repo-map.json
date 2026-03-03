@@ -1,0 +1,72 @@
+{
+  "generated": "2026-03-03T08:14:55.733Z",
+  "files": [
+    {
+      "path": "app.py",
+      "language": "python",
+      "exports": [
+        "gradio_all_in_one",
+        "run_with_status"
+      ],
+      "imports": [
+        "main"
+      ],
+      "signatures": [
+        "def gradio_all_in_one(task, system_prompt)",
+        "def run_with_status(task, system_prompt)"
+      ],
+      "lineCount": 38
+    },
+    {
+      "path": "main.py",
+      "language": "python",
+      "exports": [
+        "AIAssistant",
+        "__init__",
+        "__aenter__",
+        "__aexit__",
+        "ask_ai",
+        "_get_response",
+        "_stream_response",
+        "JSONProcessor",
+        "extract_json_from_text",
+        "clean_ai_output",
+        "robust_json_parse",
+        "ProjectGenerator",
+        "__init__",
+        "generate_project",
+        "_repair_json_with_ai",
+        "_setup_project",
+        "main"
+      ],
+      "imports": [
+        "dotenv",
+        "pathlib",
+        "rich.console",
+        "rich.progress",
+        "typing"
+      ],
+      "signatures": [
+        "class AIAssistant",
+        "def __init__(self, api_url: str, headers: Dict[str, str], model: str)",
+        "def __aenter__(self)",
+        "def __aexit__(self, exc_type, exc_val, exc_tb)",
+        "def ask_ai(self, prompt: str, system_prompt: str, stream: bool = False)",
+        "def _get_response(self, data: Dict[str, Any])",
+        "def _stream_response(self, data: Dict[str, Any])",
+        "class JSONProcessor",
+        "def extract_json_from_text(text: str)",
+        "def clean_ai_output(output: str)",
+        "def robust_json_parse(json_str: str, max_attempts: int = 3)",
+        "class ProjectGenerator",
+        "def __init__(self, ai_assistant: AIAssistant, json_processor: JSONProcessor)",
+        "def generate_project(self, task: str, output_dir: Path)",
+        "def _repair_json_with_ai(self, broken_json: str)",
+        "def _setup_project(self, output_dir: Path)",
+        "def main()"
+      ],
+      "lineCount": 407
+    }
+  ],
+  "importGraph": {}
+}
