@@ -1,93 +1,51 @@
 # Archon Project Memory
-> Last full scan: 2026-03-01
+> Last full scan: 2026-03-03
 > Repository: sasidchjfhk/AI-Software-Engineer
-> Last updated: 2026-03-03 (after PR #3)
-
-
-
-
-
-
 
 ## Project Overview
-This project is an AI software engineer, likely designed to perform tasks related to software development. The tech stack appears to be primarily Python-based. The purpose of the project is not clearly defined in the provided README.
-
-
-
-
-
-
+This project is a Python-based AI Software Engineer assistant, likely designed to automate or assist with software development tasks. The system prompt is defined in `SYSTEM_PROMPT.md`, suggesting an LLM-driven agent architecture. The tech stack is primarily Python with dependencies listed in `reqirments.txt`.
 
 ## Architecture
-* The project has a simple directory structure with a few key files: `app.py`, `main.py`, and `reqirments.txt`.
-* The `__pycache__` directory suggests that the project is using Python 3.12 and 3.13.
-* The entry point of the project is unclear, but it may be `main.py` or `app.py`.
-* The `pysprit.log` file may be a log file for the project.
-
-
-
-
-
-
+- `main.py` — likely the primary entry point or CLI runner for the agent
+- `app.py` — likely a web app or API wrapper (e.g., Flask/FastAPI) serving the agent
+- `SYSTEM_PROMPT.md` — defines the AI agent's behavior and instructions
+- `pysprit.log` — runtime log file; may capture agent actions or errors
+- `reqirments.txt` — dependency manifest (note: filename is misspelled)
+- `__pycache__/` — compiled bytecode for Python 3.12 and 3.13, suggesting dual-version usage
 
 ## Tech Stack
-* Python (versions 3.12 and 3.13)
-* Unknown frameworks and libraries (listed in `reqirments.txt`, but not provided)
+- Python 3.12 and 3.13
+- LLM agent pattern (system prompt-based, model unknown)
+- Likely Flask or FastAPI (inferred from `app.py`, unconfirmed)
+- Dependencies unknown — `reqirments.txt` not provided for inspection
 
-
-
-
-
-
-
-## Team Conventions
-* No prior reviews are available, so this section is empty.
-- Use parameterized queries — no string concatenation for SQL (learned from PR #2)
-- Use parameterized queries, not string concatenation for SQL in src/*.js (learned from PR #2)
-- Validate and sanitize all user input in src/*.js (learned from PR #2)
-- Every async function needs proper error handling in src/*.js (learned from PR #2)
-
-
-
+## Team Conventions (learned from reviews)
+- Use parameterized queries, not string concatenation for SQL — `src/*.js` (PR #2)
+- Validate and sanitize all user input at the boundary, not deep in logic — `src/*.js` (PR #2)
+- Every async function must have proper error handling, not bare awaits — `src/*.js` (PR #2)
+- Never log sensitive data (e.g., card numbers, tokens) to console or log files — `src/*.js` (PR #2)
+- Use defined utility functions, not inline references to undefined symbols — `src/*.js` (PR #3)
 
 ## Known Weak Areas
-* No prior reviews are available, so this section is empty.
-- SQL injection vulnerability in fetchUserData in `src/utils.js` (critical, PR #2)
-- Sensitive information (card number) is logged to the console in `src/utils.js` (critical, PR #2)
-- Use of eval in processPayment in `src/utils.js` (critical, PR #2)
-- SQL injection vulnerability in fetchUserData function in `src/utils.js` (critical, PR #2)
-- Sensitive information (card number) is logged to the console in `src/utils.js` (critical, PR #2)
-- Use of eval() in processPayment function in `src/utils.js` (critical, PR #2)
-- SQL injection vulnerability in fetchUserData function in `src/utils.js` (critical, PR #2)
-- Sensitive information (card number) is logged to the console in `src/utils.js` (critical, PR #2)
-- Use of eval() in processPayment function in `src/utils.js` (critical, PR #2)
-- SQL injection risk — src/*.js — seen 1 time (PR #2)
-- Full credit card number is written to co — src/*.js — seen 1 time (PR #2)
-- Use of eval with unsanitized user-supp — src/*.js — seen 1 time (PR #2)
-- processAmount is referenced but not defi — src/*.js — seen 1 time (PR #3)
-- Authentication bypass risk — src/*.js — seen 2 times (PR #3)
-
-
+- SQL injection risk — `src/*.js` — seen 3 times (PR #2, PR #3)
+- Sensitive data (credit card number) written to console/log — `src/*.js` — seen 3 times (PR #2)
+- Use of `eval()` with unsanitized user-supplied input — `src/*.js` — seen 2 times (PR #2)
+- Authentication bypass risk — `src/*.js` — seen 2 times (PR #3)
+- Undefined function reference (`processAmount`) — `src/*.js` — seen 1 time (PR #3)
+- Missing error handling in async functions — `src/*.js` — seen 1 time (PR #2)
+- Log file (`pysprit.log`) may capture sensitive agent output — root — seen 1 time
 
 ## Architecture Decisions
-* The use of Python 3.12 and 3.13 suggests that the project may be intended to be compatible with multiple versions of Python.
-* The presence of a `__pycache__` directory suggests that the project is using compiled Python files.
-
-
-
-
-
-
+- System prompt in `SYSTEM_PROMPT.md` — externalizes agent behavior from code — reviewers: flag any hardcoded instructions inside `main.py` or `app.py` that should live in the prompt file
+- Dual Python version support (3.12 + 3.13) — inferred from `__pycache__` — reviewers: flag any syntax or library usage incompatible with either version
+- Split `main.py` / `app.py` entry points — suggests CLI vs. web serving separation — reviewers: verify shared logic is not duplicated between the two files
 
 ## Files to Always Check
-* `app.py` and `main.py` may be critical files that need extra attention during reviews, as they may contain the main logic of the project.
-* `reqirments.txt` may be important for understanding the project's dependencies.
-
-
-
-
-
-
+- `main.py` — verify entry point logic, error handling, and no hardcoded secrets or prompts
+- `app.py` — check for authentication middleware, input validation on all routes, and no sensitive data in responses
+- `SYSTEM_PROMPT.md` — review for prompt injection risks or instructions that could be exploited
+- `pysprit.log` — check that no sensitive data (API keys, user input, PII) is being logged
+- `reqirments.txt` — verify no outdated or vulnerable dependencies; note filename typo may cause CI tooling misses
 
 ## Manual Overrides
 _This section is edited by the team. It is currently empty._
